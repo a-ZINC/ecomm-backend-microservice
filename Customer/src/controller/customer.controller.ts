@@ -4,7 +4,11 @@ import prisma from "../prisma";
 export const CustomerController = {
     getCustomers: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const customers = await prisma.customer.findMany();
+            const customers = await prisma.customer.findMany({
+                orderBy: {
+                    id: 'asc',
+                },
+            });
             res.status(200).json(customers);
         } catch (error) {
             next(error);
